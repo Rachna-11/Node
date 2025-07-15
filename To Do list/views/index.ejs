@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do App</title>
+  <style>
+    :root {
+      --primary-color: #22d3ee;
+      --text-color: #f1f5f9;
+      --background-color: #0f172a;
+      --card-color: #1e293b;
+      --accent-color: #38bdf8;
+      --muted-text: #64748b;
+      --danger-color: #ef4444;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    .container {
+      background-color: var(--card-color);
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 500px;
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 24px;
+      color: var(--primary-color);
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      background: #334155;
+      color: white;
+    }
+
+    input::placeholder {
+      color: #cbd5e1;
+    }
+
+    button {
+      padding: 12px 16px;
+      background-color: var(--primary-color);
+      color: #0f172a;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--accent-color);
+    }
+
+    .btn-delete-all {
+      background-color: var(--danger-color);
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      float: right;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: 0.2s;
+    }
+
+    .btn-delete-all:hover {
+      background-color: #dc2626;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      clear: both;
+    }
+
+    li {
+      background-color: #334155;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      transition: 0.3s ease;
+    }
+
+    .task-text {
+      flex: 1;
+      color: var(--text-color);
+    }
+
+    .task-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .task-actions form {
+      display: inline;
+    }
+
+    .btn-small {
+      padding: 6px 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      background-color: #facc15;
+      color: #0f172a;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-delete {
+      background-color: #ef4444;
+      color: white;
+    }
+
+    .btn-small:hover {
+      opacity: 0.85;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted-text);
+      font-style: italic;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 24px;
+      }
+
+      input, button {
+        font-size: 15px;
+      }
+
+      .btn-small {
+        font-size: 13px;
+        padding: 5px 8px;
+      }
+
+      .btn-delete-all {
+        font-size: 13px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 To-Do List</h1>
+
+    <form action="/add" method="POST">
+      <input type="text" name="task" placeholder="Add a new task..." required />
+      <button type="submit">Add</button>
+    </form>
+
+    <% if (todos.length > 0) { %>
+      <form action="/delete-all" method="POST" onsubmit="return confirm('Are you sure you want to delete all tasks?');">
+        <button type="submit" class="btn-delete-all">🗑️ Delete All</button>
+      </form>
+    <% } %>
+
+    <% if (todos.length === 0) { %>
+      <div class="empty">No tasks yet. Start building your day.</div>
+    <% } else { %>
+      <ul>
+        <% todos.forEach((task, index) => { %>
+          <li>
+            <div class="task-text"><%= task %></div>
+            <div class="task-actions">
+              <form action="/edit/<%= index %>" method="GET">
+                <button class="btn-small">Edit</button>
+              </form>
+              <form action="/delete/<%= index %>" method="POST">
+                <button class="btn-small btn-delete">Delete</button>
+              </form>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </div>
+</body>
+</html>
