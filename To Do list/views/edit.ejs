@@ -11,15 +11,10 @@
       --background-color: #0f172a;
       --card-color: #1e293b;
       --text-color: #f1f5f9;
-      --muted-text: #64748b;
       --shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -29,38 +24,33 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      padding: 20px;
+      padding: 16px;
     }
 
     .container {
       background-color: var(--card-color);
-      padding: 32px;
+      padding: 24px;
       border-radius: 16px;
       box-shadow: var(--shadow);
       width: 100%;
       max-width: 420px;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
     }
 
     h1 {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       color: var(--primary-color);
+      font-size: 22px;
     }
 
     form {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     input[type="text"] {
-      padding: 14px;
+      padding: 12px;
       font-size: 16px;
       border-radius: 10px;
       border: none;
@@ -68,12 +58,8 @@
       color: var(--text-color);
     }
 
-    input::placeholder {
-      color: #cbd5e1;
-    }
-
     button {
-      padding: 14px;
+      padding: 12px;
       font-size: 16px;
       font-weight: bold;
       background-color: var(--primary-color);
@@ -84,18 +70,12 @@
       transition: background-color 0.2s ease;
     }
 
-    button:hover {
-      background-color: var(--accent-color);
-    }
+    button:hover { background-color: var(--accent-color); }
 
     @media (max-width: 480px) {
-      .container {
-        padding: 24px;
-      }
-
-      input, button {
-        font-size: 15px;
-      }
+      .container { padding: 16px; }
+      h1 { font-size: 20px; }
+      input, button { font-size: 15px; }
     }
   </style>
 </head>

@@ -16,11 +16,7 @@
       --shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -28,37 +24,30 @@
       color: var(--text-color);
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 60px 20px;
+      padding: 20px;
     }
 
     .container {
       background-color: var(--card-color);
-      padding: 32px;
+      padding: 24px;
       border-radius: 16px;
       box-shadow: var(--shadow);
       width: 100%;
       max-width: 500px;
-      animation: fadeIn 0.6s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
-      font-size: 28px;
+      font-size: 24px;
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       color: var(--primary-color);
     }
 
     form {
       display: flex;
       gap: 10px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
     input[type="text"] {
@@ -69,10 +58,7 @@
       font-size: 16px;
       background: #334155;
       color: white;
-    }
-
-    input::placeholder {
-      color: #cbd5e1;
+      min-width: 0;
     }
 
     button {
@@ -84,34 +70,23 @@
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s ease;
+      white-space: nowrap;
     }
 
-    button:hover {
-      background-color: var(--accent-color);
-    }
+    button:hover { background-color: var(--accent-color); }
 
     .btn-delete-all {
       background-color: var(--danger-color);
       color: white;
       padding: 10px 16px;
-      border: none;
       border-radius: 8px;
       font-size: 14px;
-      float: right;
-      cursor: pointer;
-      margin-bottom: 20px;
-      transition: 0.2s;
+      margin-bottom: 15px;
     }
 
-    .btn-delete-all:hover {
-      background-color: #dc2626;
-    }
+    .btn-delete-all:hover { background-color: #dc2626; }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      clear: both;
-    }
+    ul { list-style: none; padding: 0; }
 
     li {
       background-color: #334155;
@@ -121,22 +96,19 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 16px;
-      transition: 0.3s ease;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .task-text {
       flex: 1;
-      color: var(--text-color);
+      word-break: break-word;
     }
 
     .task-actions {
       display: flex;
-      gap: 8px;
-    }
-
-    .task-actions form {
-      display: inline;
+      gap: 6px;
+      flex-wrap: wrap;
     }
 
     .btn-small {
@@ -154,10 +126,6 @@
       color: white;
     }
 
-    .btn-small:hover {
-      opacity: 0.85;
-    }
-
     .empty {
       text-align: center;
       color: var(--muted-text);
@@ -165,24 +133,13 @@
       margin-top: 20px;
     }
 
+    /* Extra small screens */
     @media (max-width: 480px) {
-      .container {
-        padding: 24px;
-      }
-
-      input, button {
-        font-size: 15px;
-      }
-
-      .btn-small {
-        font-size: 13px;
-        padding: 5px 8px;
-      }
-
-      .btn-delete-all {
-        font-size: 13px;
-        padding: 8px 12px;
-      }
+      .container { padding: 16px; }
+      h1 { font-size: 20px; }
+      input, button { font-size: 15px; }
+      li { flex-direction: column; align-items: flex-start; }
+      .task-actions { width: 100%; justify-content: flex-start; }
     }
   </style>
 </head>
@@ -196,7 +153,7 @@
     </form>
 
     <% if (todos.length > 0) { %>
-      <form action="/delete-all" method="POST" onsubmit="return confirm('Are you sure you want to delete all tasks?');">
+      <form action="/delete-all" method="POST" onsubmit="return confirm('Delete all tasks?');">
         <button type="submit" class="btn-delete-all">🗑️ Delete All</button>
       </form>
     <% } %>
